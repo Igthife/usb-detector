@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="http://android-er.blogspot.com/"
+        android:textStyle="bold"
+        android:id="@+id/text1"
+        />
+    </LinearLayout>
+    <Button
+        android:id="@+id/check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check USB devices"
+        app:layout_constraintTop_toBottomOf="@id/layout1"/>
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/check"/>
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/info"/>
+    <TextView
+        android:id="@+id/testInter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/test"/>
+    <TextView
+        android:id="@+id/testReceived"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/testInter"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
