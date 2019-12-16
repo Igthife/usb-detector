@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean hasUsbHostFeature(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_USB_HOST);
     }
-    private void checkInfo() {
+    private void checkInfo() {          //checks basic info
 
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
         Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
@@ -110,14 +110,14 @@ public class MainActivity extends AppCompatActivity {
 
             if (device.getInterface(i).getEndpointCount() > 0)
             {
-                epDirString = String.valueOf(device.getInterface(i).getEndpoint(0).getDirection());
+                epDirString = String.valueOf(device.getInterface(i).getEndpoint(0).getDirection()); // Value 128 Device to host Value 0 Host to device
                 epTypeString = String.valueOf(device.getInterface(i).getEndpoint(0).getType());
             }
 
             values += "Int. " + i + " EP count: " + device.getInterface(i).getEndpointCount() +
                     " || EP direction: " + epDirString + " || EP type: " + epTypeString + "\n";
 
-            if (device.getInterface(i).getEndpointCount() == 2)
+            if (device.getInterface(i).getEndpointCount() == 2)                                                 //For the one case with 2 endpoints
             {
                 epDirString = String.valueOf(device.getInterface(i).getEndpoint(1).getDirection());
                 epTypeString = String.valueOf(device.getInterface(i).getEndpoint(1).getType());
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void AtteptComm(){
+    private void AtteptComm(){                                  //Method attempting to send and recieve data
         connect = manager.openDevice(device);
         usbInter = device.getInterface(1);
         endPoint1 = usbInter.getEndpoint(1); //1
@@ -191,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         CheckInterfaceEndpoints();
+
+        //---------------------------------------------- THIS SECTION ------------------------
 
         byte bytes[] ;//= {0x50, 0x2c, (byte)0xCB, (byte)0xff};
         String x = ":0\n";
@@ -224,10 +226,10 @@ public class MainActivity extends AppCompatActivity {
         //testReceived.setText(String.valueOf(y));  //new String(Rbytes)
         //testReceived.set
     }
-
+    //--------------------------------------------------------------------------------
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
 
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, Intent intent) {     //Receives intent when permission given to access device.
             String action = intent.getAction();
             if (ACTION_USB_PERMISSION.equals(action)) {
                 synchronized (this) {
@@ -235,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         Log.d(TAG, "permission Given for device " + device);
-                        AtteptComm();
+                        AtteptComm();                                                           //calls final method
 
                     }
                     else {
@@ -248,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private String translateDeviceClass(int deviceClass){
+    private String translateDeviceClass(int deviceClass){  //Method just checking device type
         switch(deviceClass){
             case UsbConstants.USB_CLASS_APP_SPEC:
                 return "Application specific USB class";
